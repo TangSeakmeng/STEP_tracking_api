@@ -60,6 +60,10 @@ public class ShippmentPackageController {
 	  
 	  User userDetails = userRepository.findByUsername(item.getUpdatedBy().getUsername());
 	  
+	  item.setStatus(itemDetails.getStatus());
+	  item.setWeight(itemDetails.getWeight());
+	  item.setPackageCode(itemDetails.getPackageCode());
+	  item.setOriginTrackingNumber(itemDetails.getOriginTrackingNumber());
 	  item.setName(itemDetails.getName());
 	  item.setDescription(itemDetails.getDescription());
 	  item.setPrice(itemDetails.getPrice());

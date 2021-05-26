@@ -32,6 +32,9 @@ public class ShippmentPackage {
 	@Column(name = "price", nullable = false)
 	private Double price;
 	
+	@Column(name = "status", nullable = true)
+	private String status;
+	
 	@Column(name = "is_delete", nullable = false)
 	private Boolean isDelete;
 
@@ -117,6 +120,14 @@ public class ShippmentPackage {
 		this.price = price;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Boolean getIsDelete() {
 		return isDelete;
 	}
@@ -163,6 +174,14 @@ public class ShippmentPackage {
 
 	public void setOwner(Customer owner) {
 		this.owner = owner;
+	}
+
+	@Override
+	public String toString() {
+		return "ShippmentPackage [id=" + id + ", originTrackingNumber=" + originTrackingNumber + ", packageCode="
+				+ packageCode + ", name=" + name + ", description=" + description + ", weight=" + weight + ", price="
+				+ price + ", status=" + status + ", isDelete=" + isDelete + ", createdAt=" + createdAt + ", createdBy="
+				+ createdBy + ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + ", owner=" + owner + "]";
 	}
 	
 }

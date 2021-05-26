@@ -135,9 +135,9 @@ public class ShippingService {
 
 	@Override
 	public String toString() {
-		return "ShippingService [id=" + id + ", name=" + name + ", description=" + description + ", isDelete="
-				+ isDelete + ", createdAt=" + createdAt + ", createdBy=" + createdBy + ", updatedAt=" + updatedAt
-				+ ", updatedBy=" + updatedBy + "]";
+		return "ShippingService [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
+				+ ", isDelete=" + isDelete + ", createdAt=" + createdAt + ", createdBy=" + createdBy + ", updatedAt="
+				+ updatedAt + ", updatedBy=" + updatedBy + "]";
 	}
 	
 }

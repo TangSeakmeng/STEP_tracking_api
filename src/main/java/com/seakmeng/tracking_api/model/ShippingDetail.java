@@ -7,21 +7,18 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class TrackingProgress {
+public class ShippingDetail {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", unique = true, nullable = false)
-	private Long id;
+	@EmbeddedId
+    private ShippingPackageLinkId linkPk = new ShippingPackageLinkId(); 
 	
-	@Column(name = "name", nullable = false)	
-	private String name;
-
-	@Column(name = "description", nullable = false)
-	private String description;
+	@ManyToOne
+    @MapsId("shippingId")
+    private Shipping shipping;
 	
-	@Column(name = "order_progress", nullable = false)
-	private int orderProgress;
+    @ManyToOne
+    @MapsId("shippmentPackageId")
+    private ShippmentPackage shippmentPackage;
 	
 	@Column(name = "is_delete", nullable = false)
 	private Boolean isDelete;
@@ -40,44 +37,36 @@ public class TrackingProgress {
 	@Column(name = "updated_at", nullable = false)
 	private Date updatedAt;
 	
-	@ManyToOne(targetEntity = User.class)
+	@ManyToOne
     @JoinColumn(name="updated_by", nullable=false, referencedColumnName = "id")
     private User updatedBy;
-	
-	public TrackingProgress() {
-
+    
+    public ShippingDetail() {
+		
 	}
 
-	public Long getId() {
-		return id;
+	public ShippingPackageLinkId getLinkPk() {
+		return linkPk;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setLinkPk(ShippingPackageLinkId linkPk) {
+		this.linkPk = linkPk;
 	}
 
-	public String getName() {
-		return name;
+	public Shipping getShipping() {
+		return shipping;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setShipping(Shipping shipping) {
+		this.shipping = shipping;
 	}
 
-	public String getDescription() {
-		return description;
+	public ShippmentPackage getShippmentPackage() {
+		return shippmentPackage;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getOrderProgress() {
-		return orderProgress;
-	}
-
-	public void setOrderProgress(int orderProgress) {
-		this.orderProgress = orderProgress;
+	public void setShippmentPackage(ShippmentPackage shippmentPackage) {
+		this.shippmentPackage = shippmentPackage;
 	}
 
 	public Boolean getIsDelete() {
@@ -122,9 +111,9 @@ public class TrackingProgress {
 
 	@Override
 	public String toString() {
-		return "TrackingProgress [id=" + id + ", name=" + name + ", description=" + description + ", orderProgress="
-				+ orderProgress + ", isDelete=" + isDelete + ", createdAt=" + createdAt + ", createdBy=" + createdBy
-				+ ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + "]";
+		return "ShippingDetail [linkPk=" + linkPk + ", shipping=" + shipping + ", shippmentPackage=" + shippmentPackage
+				+ ", isDelete=" + isDelete + ", createdAt=" + createdAt + ", createdBy=" + createdBy + ", updatedAt="
+				+ updatedAt + ", updatedBy=" + updatedBy + "]";
 	}
 	
 }

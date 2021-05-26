@@ -5,7 +5,6 @@ import com.seakmeng.tracking_api.security.JWTAuthorizationFilter;
 import com.seakmeng.tracking_api.service.UserDetailServiceImpl;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
   public static final String SIGN_UP_URL = "/api/users";
+  public static final String CUSTOMER_SIGN_UP_URL = "/api/customers";
 
   @SuppressWarnings("unused")
   @Autowired private UserDetailServiceImpl userDetailService;
@@ -43,9 +43,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .and()
         .csrf()
         .disable()
-        .authorizeRequests() // Add a new custom security filter
-        .antMatchers(HttpMethod.POST, SIGN_UP_URL)
-        .permitAll() // Only Allow Permission for create user endpoint
+        .authorizeRequests()
+        .antMatchers(HttpMethod.POST, SIGN_UP_URL, CUSTOMER_SIGN_UP_URL)
+        .permitAll()
         .anyRequest()
         .authenticated()
         .and()

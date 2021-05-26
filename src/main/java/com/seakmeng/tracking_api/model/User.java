@@ -36,6 +36,9 @@ public class User {
 
    @Column(name = "email_address", nullable = false)
    private String email;
+   
+   @Column(name = "is_admin", nullable = false)
+   private Boolean isAdmin;
 
    @CreationTimestamp
    @Temporal(TemporalType.TIMESTAMP)
@@ -120,6 +123,14 @@ public class User {
 
 	public void setEmail(String email) {
        this.email = email;
+	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 	public Date getCreatedAt() {

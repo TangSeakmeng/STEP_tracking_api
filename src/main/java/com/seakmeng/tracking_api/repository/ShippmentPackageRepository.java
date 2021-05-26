@@ -14,7 +14,7 @@ public interface ShippmentPackageRepository extends JpaRepository<ShippmentPacka
 
 	List<ShippmentPackage> findByNameContaining(String name);
 	
-	@Query(value = "SELECT * FROM shipment_package a WHERE a.is_delete = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM shippment_package a WHERE a.is_delete = ?1", nativeQuery = true)
 	List<ShippmentPackage> findShippmentPackagesByIsDeleteNative(Boolean is_delete);
   
 }

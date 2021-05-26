@@ -149,4 +149,12 @@ public class Customer {
 		this.shippmentPackageList = shippmentPackageList;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
+				+ ", telephone=" + telephone + ", address=" + address + ", createdAt=" + createdAt + ", createdBy="
+				+ createdBy + ", updatedAt=" + updatedAt + ", updatedBy=" + updatedBy + ", shippmentPackageList="
+				+ shippmentPackageList + "]";
+	}
+
 }
