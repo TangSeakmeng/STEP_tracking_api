@@ -5,8 +5,11 @@ import com.seakmeng.tracking_api.model.ShippmentPackage;
 import com.seakmeng.tracking_api.model.User;
 import com.seakmeng.tracking_api.repository.ShippmentPackageRepository;
 import com.seakmeng.tracking_api.repository.UserRepository;
+import com.seakmeng.tracking_api.service.ShippmentPackgeDetailServiceImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,10 +24,25 @@ public class ShippmentPackageController {
   
   @Autowired
   private UserRepository userRepository;
+  
+  @Autowired
+  private ShippmentPackgeDetailServiceImpl packageService;
 
+//  @GetMapping("/packages")
+//  public List<ShippmentPackage> getPackages() {
+//	  return shippmentPackageRepository.findShippmentPackagesByIsDeleteNative(false);
+//  }
+  
+//  @GetMapping("/packages")
+//  public Page<ShippmentPackage> getPackages(
+//		  @RequestParam(required = false, defaultValue = "10") int pageSize, 
+//		  @RequestParam(required = false, defaultValue = "0") int pageNumber) {
+//	  return (Page<ShippmentPackage>) packageService.getShippmentPackages(pageNumber, pageSize);
+//  }
+  
   @GetMapping("/packages")
-  public List<ShippmentPackage> getPackages() {
-	  return shippmentPackageRepository.findShippmentPackagesByIsDeleteNative(false);
+  public Page<ShippmentPackage> getPackages(Pageable page) {
+	  return (Page<ShippmentPackage>) packageService.getShippmentPackages(page);
   }
 
   @GetMapping("/packages/{id}")
@@ -33,6 +51,13 @@ public class ShippmentPackageController {
 	  ShippmentPackage item = shippmentPackageRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("Package not found on :: " + id));
 	  
+	  return ResponseEntity.ok().body(item);
+  }
+  
+  @GetMapping("/packages/{originTrackingNumber}/originTrackingNumber")
+  public ResponseEntity<ShippmentPackage> getPackageByOriginTrackingNumber(@PathVariable(value = "originTrackingNumber") String originTrackingNumber)
+      throws ResourceNotFoundException {
+	  ShippmentPackage item = shippmentPackageRepository.findShippmentPackageByOriginTrackingNumberNative(originTrackingNumber);
 	  return ResponseEntity.ok().body(item);
   }
   
