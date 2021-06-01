@@ -171,7 +171,27 @@ public class User {
        this.updatedBy = updatedBy;
 	}
 
-   @Override
+   public String getTelephone() {
+		return telephone;
+	}
+
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+@Override
    public String toString() {
        return "User{" +
                "id=" + id +

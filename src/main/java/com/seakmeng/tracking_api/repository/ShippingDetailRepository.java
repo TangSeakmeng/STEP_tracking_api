@@ -14,7 +14,10 @@ public interface ShippingDetailRepository extends JpaRepository<ShippingDetail, 
 	@Query(value = "SELECT * FROM shipping_detail a WHERE a.shipping_id = ?1", nativeQuery = true)
 	List<ShippingDetail> findShippingDetailsByShippingIdNative(Long shipping_id);
 	
-	@Query(value = "SELECT * FROM shipping_detail a WHERE a.shipping_id = ?1 and a.package_id = ?2", nativeQuery = true)
+	@Query(value = "SELECT * FROM shipping_detail a WHERE a.shipping_id = ?1 and a.shippment_package_id = ?2", nativeQuery = true)
 	ShippingDetail findShippingDetailByShippingIdAndPackageIdNative(Long shipping_id, Long package_id);
+	
+	@Query(value = "SELECT * FROM shipping_detail a WHERE a.shippment_package_id = ?1", nativeQuery = true)
+	ShippingDetail findShippingDetailByPackageIdNative(Long package_id);
 	
 }

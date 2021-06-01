@@ -44,7 +44,7 @@ public class ShippingDetailController {
   public ShippingDetail createShippingDetail(@RequestBody ShippingDetail shippingDetail) {
 	  User userDetails = userRepository.findByUsername(shippingDetail.getCreatedBy().getUsername());
 	  Shipping shipping = shippingRepository.findById(shippingDetail.getShipping().getId()).get();
-	  ShippmentPackage shippmentPackage = shippmentPackageRepository.findById(shippingDetail.getShippmentPackage().getId()).get();
+	  ShippmentPackage shippmentPackage = shippmentPackageRepository.findShippmentPackageByPackageCodeNative(shippingDetail.getShippmentPackage().getPackageCode());
 	  
 	  shippingDetail.setShipping(shipping);
 	  shippingDetail.setShippmentPackage(shippmentPackage);

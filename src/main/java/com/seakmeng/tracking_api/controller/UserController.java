@@ -47,6 +47,7 @@ public class UserController {
 
   @PostMapping("/users")
   public User createUser(@Valid @RequestBody User user) {
+	  
     user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     user.setIsAdmin(true);
     return userRepository.save(user);

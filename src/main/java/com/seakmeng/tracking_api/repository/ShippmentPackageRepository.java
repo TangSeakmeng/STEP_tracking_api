@@ -19,6 +19,9 @@ public interface ShippmentPackageRepository extends JpaRepository<ShippmentPacka
 	
 	@Query(value = "SELECT * FROM shippment_package a WHERE a.origin_tracking_number = ?1", nativeQuery = true)
 	ShippmentPackage findShippmentPackageByOriginTrackingNumberNative(String originTrackingNumber);
+	
+	@Query(value = "SELECT * FROM shippment_package a WHERE a.package_code = ?1", nativeQuery = true)
+	ShippmentPackage findShippmentPackageByPackageCodeNative(String packageCode);
   
 }
 

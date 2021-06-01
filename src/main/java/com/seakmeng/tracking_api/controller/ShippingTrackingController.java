@@ -4,10 +4,13 @@ import com.seakmeng.tracking_api.exception.ResourceNotFoundException;
 import com.seakmeng.tracking_api.model.Shipping;
 import com.seakmeng.tracking_api.model.ShippingDetail;
 import com.seakmeng.tracking_api.model.ShippingTracking;
+import com.seakmeng.tracking_api.model.ShippmentPackage;
 import com.seakmeng.tracking_api.model.TrackingProgress;
 import com.seakmeng.tracking_api.model.User;
+import com.seakmeng.tracking_api.repository.ShippingDetailRepository;
 import com.seakmeng.tracking_api.repository.ShippingRepository;
 import com.seakmeng.tracking_api.repository.ShippingTrackingRepository;
+import com.seakmeng.tracking_api.repository.ShippmentPackageRepository;
 import com.seakmeng.tracking_api.repository.TrackingProgressRepository;
 import com.seakmeng.tracking_api.repository.UserRepository;
 
@@ -25,10 +28,16 @@ public class ShippingTrackingController {
   private ShippingTrackingRepository shippingTrackingRepository;
   
   @Autowired
+  private ShippingDetailRepository shippingDetailRepository;
+  
+  @Autowired
   private UserRepository userRepository;
   
   @Autowired
   private ShippingRepository shippingRepository;
+  
+  @Autowired
+  private ShippmentPackageRepository shippmentPackageRepository;
   
   @Autowired
   private TrackingProgressRepository trackingProgressRepository;
@@ -39,6 +48,16 @@ public class ShippingTrackingController {
 			  throws ResourceNotFoundException {
 	  List<ShippingTracking> shippingTrackings = shippingTrackingRepository.findShippingTrackingsByShippingIdNative(shippingId);
 	  return ResponseEntity.ok().body(shippingTrackings);
+  }
+  
+  @GetMapping("/shipping_tracking/{packageCode}/packageCode")
+  public ResponseEntity<List<ShippingTracking>> getShippingInformationInfoByPackageCode(
+	  @PathVariable(value = "packageCode") String packageCode)
+			  throws ResourceNotFoundException {
+	  ShippmentPackage shippmentPackage = shippmentPackageRepository.findShippmentPackageByPackageCodeNative(packageCode);
+	  ShippingDetail shippingDetail = shippingDetailRepository.findShippingDetailByPackageIdNative(shippmentPackage.getId());
+	  List<ShippingTracking> listShippingTracking = shippingTrackingRepository.findShippingTrackingsByShippingIdNative(shippingDetail.getShipping().getId());
+	  return ResponseEntity.ok().body(listShippingTracking);
   }
 
   @PostMapping(path = "/shipping_tracking", consumes = "application/json", produces = "application/json")
